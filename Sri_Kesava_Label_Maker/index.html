@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sri Kesava Fertilizers — Label Maker</title>
+  <style>
+    :root {
+      --label-width: 9cm;
+      --label-height: 5.5cm;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    .app-header {
+      background: #fff;
+      border-bottom: 1px solid #d1d5db;
+      padding: 18px 24px;
+    }
+
+    .app-header h1 {
+      margin: 0 0 5px;
+      font-size: 22px;
+    }
+
+    .app-header p {
+      margin: 0;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .layout {
+      max-width: 1400px;
+      margin: 22px auto;
+      padding: 0 18px;
+      display: grid;
+      grid-template-columns: minmax(300px, 390px) minmax(0, 1fr);
+      gap: 22px;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .04);
+    }
+
+    .panel h2 {
+      font-size: 17px;
+      margin: 0 0 16px;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #374151;
+      margin-bottom: 5px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px 11px;
+      border: 1px solid #d1d5db;
+      border-radius: 7px;
+      font: inherit;
+      font-size: 14px;
+      background: white;
+    }
+
+    input:focus,
+    select:focus {
+      outline: 2px solid #9ca3af;
+      border-color: #6b7280;
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 17px;
+    }
+
+    button {
+      border: 1px solid #111827;
+      border-radius: 7px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: #111827;
+      color: #fff;
+    }
+
+    .secondary {
+      background: #fff;
+      color: #111827;
+    }
+
+    .hint {
+      color: #6b7280;
+      font-size: 12px;
+      line-height: 1.5;
+      margin-top: 14px;
+    }
+
+    .preview-area {
+      min-width: 0;
+    }
+
+    .preview-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .preview-top h2 {
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .preview-top span {
+      color: #6b7280;
+      font-size: 12px;
+    }
+
+    .stage {
+      min-height: 430px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: #e5e7eb;
+      border-radius: 12px;
+      overflow: auto;
+    }
+
+    .label {
+      width: var(--label-width);
+      height: var(--label-height);
+      background: #fff;
+      color: #000;
+      border: 1.2px solid #000;
+      border-radius: 5px;
+      padding: 3.2%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      font-family: Arial, Helvetica, sans-serif;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, .12);
+      flex-shrink: 0;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .brand {
+      font-size: clamp(8px, 1.55vw, 18px);
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: -.4px;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .plant-mark {
+      display: none;
+    }
+
+    .rule {
+      border: 0;
+      border-top: 1px solid #000;
+      margin: 2.5% 0;
+    }
+
+    .product {
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: clamp(10px, 2vw, 24px);
+      line-height: 1.05;
+      overflow-wrap: anywhere;
+      margin: 1% 0 2%;
+    }
+
+    .details {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5%;
+      font-size: clamp(6px, .95vw, 12px);
+      line-height: 1.12;
+    }
+
+    .detail-row {
+      display: grid;
+      grid-template-columns: 31% 4% 1fr;
+      gap: 2px;
+      min-height: 1em;
+    }
+
+    .detail-label {
+      font-weight: 700;
+    }
+
+    .detail-value {
+      overflow-wrap: anywhere;
+    }
+
+    .footer-rule {
+      margin-top: auto;
+      margin-bottom: 1.5%;
+    }
+
+    .packed-by {
+      font-size: clamp(6px, .9vw, 11px);
+      line-height: 1.1;
+      font-weight: 700;
+    }
+
+    .company-name {
+      font-size: clamp(7px, 1.15vw, 14px);
+      line-height: 1.05;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin: .5% 0;
+      overflow-wrap: anywhere;
+    }
+
+    .footer-line {
+      font-size: clamp(5.5px, .78vw, 10px);
+      line-height: 1.1;
+      overflow-wrap: anywhere;
+      margin-top: .4%;
+    }
+
+    .empty {
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    @media (max-width: 850px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .stage {
+        min-height: 300px;
+        justify-content: flex-start;
+      }
+
+      .brand {
+        font-size: 16px;
+      }
+
+      .product {
+        font-size: 21px;
+      }
+
+      .details {
+        font-size: 11px;
+      }
+
+      .packed-by {
+        font-size: 10px;
+      }
+
+      .company-name {
+        font-size: 13px;
+      }
+
+      .footer-line {
+        font-size: 9px;
+      }
+    }
+
+    @page {
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .app-header,
+      .form-panel,
+      .preview-top,
+      .print-note {
+        display: none !important;
+      }
+
+      .layout {
+        display: block;
+        margin: 0;
+        padding: 0;
+        max-width: none;
+      }
+
+      .preview-area,
+      .panel {
+        border: 0;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .stage {
+        display: block;
+        padding: 0;
+        margin: 0;
+        background: #fff;
+        min-height: 0;
+        overflow: visible;
+      }
+
+      .label {
+        width: var(--label-width);
+        height: var(--label-height);
+        border-radius: 0;
+        box-shadow: none;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="app-header">
+    <h1>Sri Kesava Fertilizers — Label Maker</h1>
+    <p>Enter product details, check the black-and-white sticker preview, then print or save as PDF.</p>
+  </header>
+
+  <main class="layout">
+    <section class="panel form-panel">
+      <h2>Label details</h2>
+      <div class="field"><label for="brandInput">Business / brand name</label><input id="brandInput"
+          value="SRI KESAVA FERTILIZERS"></div>
+      <div class="field"><label for="productInput">Product name</label><input id="productInput" placeholder="e.g. UREA"
+          value="PRODUCT NAME"></div>
+      <div class="two">
+        <div class="field"><label for="weightInput">Net weight</label><input id="weightInput" placeholder="e.g. 1 kg"
+            value="1 kg"></div>
+        <div class="field"><label for="mrpInput">MRP (₹)</label><input id="mrpInput" placeholder="e.g. 70.00" value="">
+        </div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="batchInput">Batch number</label><input id="batchInput"
+            placeholder="Enter batch no."></div>
+        <div class="field"><label for="packedInput">Packed date</label><input id="packedInput" type="text"
+            placeholder="DD/MM/YYYY"></div>
+      </div>
+      <div class="field"><label for="expiryInput">Expiry date (if applicable)</label><input id="expiryInput"
+          placeholder="DD/MM/YYYY (optional)"></div>
+      <div class="field"><label for="packedByInput">Packed / marketed by</label><input id="packedByInput"
+          value="SRI KESAVA FERTILIZERS"></div>
+      <div class="field"><label for="addressInput">Business address</label><input id="addressInput"
+          placeholder="Enter complete address"></div>
+      <div class="two">
+        <div class="field"><label for="phoneInput">Customer care</label><input id="phoneInput"
+            placeholder="Phone number"></div>
+        <div class="field"><label for="emailInput">Email</label><input id="emailInput" placeholder="Email address">
+        </div>
+      </div>
+      <h2 style="margin-top:18px">Sticker size</h2>
+      <div class="two">
+        <div class="field"><label for="widthInput">Width (cm)</label><input id="widthInput" type="number" min="3"
+            max="30" step="0.1" value="9"></div>
+        <div class="field"><label for="heightInput">Height (cm)</label><input id="heightInput" type="number" min="2"
+            max="20" step="0.1" value="5.5"></div>
+      </div>
+      <div class="actions">
+        <button class="primary" id="printBtn">Print / Save PDF</button>
+        <button class="secondary" id="resetBtn" type="button">Reset sample</button>
+      </div>
+      <p class="hint">Printing tip: choose your label printer or “Save as PDF”. In the print dialog, use 100% / Actual
+        size and turn off headers and footers. Test one label first. The preview is a design aid; check actual print
+        size and required legal declarations before selling.</p>
+    </section>
+
+    <section class="preview-area">
+      <div class="preview-top">
+        <h2>Live sticker preview</h2>
+        <span id="sizeReadout">9 × 5.5 cm</span>
+      </div>
+      <div class="stage">
+        <article class="label" id="label">
+          <div class="brand-row">
+            <div class="brand" id="outBrand">SRI KESAVA FERTILIZERS</div>
+          </div>
+          <hr class="rule">
+          <div class="product" id="outProduct">PRODUCT NAME</div>
+          <div class="details">
+            <div class="detail-row"><span class="detail-label">Net Weight</span><span>:</span><span class="detail-value"
+                id="outWeight">1 kg</span></div>
+            <div class="detail-row"><span class="detail-label">MRP</span><span>:</span><span class="detail-value"
+                id="outMrp">₹ ______ (Incl. of all taxes)</span></div>
+            <div class="detail-row"><span class="detail-label">Batch No.</span><span>:</span><span class="detail-value"
+                id="outBatch">________</span></div>
+            <div class="detail-row"><span class="detail-label">Packed Date</span><span>:</span><span
+                class="detail-value" id="outPacked">__/__/____</span></div>
+            <div class="detail-row" id="expiryRow"><span class="detail-label">Expiry Date</span><span>:</span><span
+                class="detail-value" id="outExpiry">__/__/____</span></div>
+          </div>
+          <hr class="rule footer-rule">
+          <div class="packed-by">Packed/Marketed by:</div>
+          <div class="company-name" id="outPackedBy">SRI KESAVA FERTILIZERS</div>
+          <div class="footer-line" id="outAddress">Address: [Full business address]</div>
+          <div class="footer-line" id="outPhone">Customer Care: [Phone number]</div>
+          <div class="footer-line" id="outEmail">Email: [Email address]</div>
+        </article>
+      </div>
+      <p class="hint print-note">No logo, barcode, icons, or decorative graphics are included. Only black text and
+        simple divider lines on white.</p>
+    </section>
+  </main>
+  <script>
+    const $ = id => document.getElementById(id);
+    const fields = {
+      brandInput: 'outBrand', productInput: 'outProduct', weightInput: 'outWeight',
+      packedByInput: 'outPackedBy'
+    };
+    function textOr(value, fallback) { return value.trim() || fallback; }
+    function update() {
+      Object.entries(fields).forEach(([inputId, outputId]) => {
+        $(outputId).textContent = textOr($(inputId).value, inputId === 'productInput' ? 'PRODUCT NAME' : '');
+      });
+      $('outMrp').textContent = $('mrpInput').value.trim()
+        ? '₹ ' + $('mrpInput').value.trim() + ' (Incl. of all taxes)'
+        : '₹ ______ (Incl. of all taxes)';
+      $('outBatch').textContent = textOr($('batchInput').value, '________');
+      $('outPacked').textContent = textOr($('packedInput').value, '__/__/____');
+      $('outExpiry').textContent = textOr($('expiryInput').value, '__/__/____');
+      $('expiryRow').style.display = $('expiryInput').value.trim() ? 'grid' : 'none';
+      $('outAddress').textContent = 'Address: ' + textOr($('addressInput').value, '[Full business address]');
+      $('outPhone').textContent = 'Customer Care: ' + textOr($('phoneInput').value, '[Phone number]');
+      $('outEmail').textContent = 'Email: ' + textOr($('emailInput').value, '[Email address]');
+      const width = Math.max(3, Math.min(30, parseFloat($('widthInput').value) || 9));
+      const height = Math.max(2, Math.min(20, parseFloat($('heightInput').value) || 5.5));
+      document.documentElement.style.setProperty('--label-width', width + 'cm');
+      document.documentElement.style.setProperty('--label-height', height + 'cm');
+      $('sizeReadout').textContent = width + ' × ' + height + ' cm';
+      const label = $('label');
+      label.style.aspectRatio = width + ' / ' + height;
+    }
+    document.querySelectorAll('input').forEach(input => input.addEventListener('input', update));
+    $('printBtn').addEventListener('click', () => { update(); window.print(); });
+    $('resetBtn').addEventListener('click', () => {
+      $('brandInput').value = 'SRI KESAVA FERTILIZERS';
+      $('productInput').value = 'PRODUCT NAME';
+      $('weightInput').value = '1 kg';
+      $('mrpInput').value = '';
+      $('batchInput').value = '';
+      $('packedInput').value = '';
+      $('expiryInput').value = '';
+      $('packedByInput').value = 'SRI KESAVA FERTILIZERS';
+      $('addressInput').value = '';
+      $('phoneInput').value = '';
+      $('emailInput').value = '';
+      $('widthInput').value = '9';
+      $('heightInput').value = '5.5';
+      update();
+    });
+    update();
+  </script>
+</body>
+
+</html>
