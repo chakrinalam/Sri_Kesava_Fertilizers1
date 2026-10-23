@@ -25,9 +25,9 @@ AA,12,126,1,1,0,0E,Pkd/Mktd: SRI KESAVA FERTILIZERS
 AA,11,142,1,1,0,0E,Address: 17/43-1-46, Main Road, Kakinada - 533001
 AA,11,157,1,1,0,0E,Customer Care: 9603936350
 AA,14,173,1,1,0,0E,Email: skfkkd@yahoo.co.in
-AB,90,46,1,1,0,0E,1kg
-AB,74,71,1,1,0,0E,Rs.500/-
-AB,93,94,1,1,0,0E,22/10/2026
+AB,90,46,1,1,0,0E,$weight kg
+AB,74,71,1,1,0,0E,Rs. $price /-
+AB,93,94,1,1,0,0E,$date
 AA,279,56,1,1,0,0E,Rs.50 / 100gm
 AB,409,48,1,1,0,0E,Net Wt:
 AB,408,71,1,1,0,0E,MRP:
@@ -39,8 +39,8 @@ AA,412,126,1,1,0,0E,Pkd/Mktd: SRI KESAVA FERTILIZERS
 AA,411,142,1,1,0,0E,Address: 17/43-1-46, Main Road, Kakinada - 533001
 AA,411,157,1,1,0,0E,Customer Care: 9603936350
 AA,414,173,1,1,0,0E,Email: skfkkd@yahoo.co.in
-AB,490,46,1,1,0,0E,1kg
-AB,474,71,1,1,0,0E,Rs.500/-
-AB,493,94,1,1,0,0E,22/10/2026
+AB,490,46,1,1,0,0E,$weightkg
+AB,474,71,1,1,0,0E,Rs. $price /-
+AB,493,94,1,1,0,0E,$date
 AA,679,56,1,1,0,0E,Rs.50 / 100gm
 E

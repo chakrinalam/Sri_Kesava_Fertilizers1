@@ -1,3 +1,4 @@
+const print = require("./print");
 const fs = require("fs");
 const { execSync } = require("child_process");
 const readfile = (filePath) => {
@@ -10,15 +11,11 @@ const readfile = (filePath) => {
   }
 };
 
-const printRoutes = () => {
-  const filePath = "urea.prn";
-  const fileContent = readfile(filePath);
-  if (fileContent) {
-    console.log("File content read successfully:");
-    console.log(fileContent);
-  } else {
-    console.log("Failed to read file content.");
-  } 
+const printRoute = (req, res) => {
+  const url = req.url;
+  if (url === "/") {
+    print(res);
+  }
 };
 
 const printRoutes1 = () => {
@@ -34,4 +31,5 @@ const printRoutes1 = () => {
     console.error(`Error executing command: ${error.message}`);
   }
 };
-module.exports = printRoutes;
+module.exports = printRoutes1;
+module.exports = printRoute;
