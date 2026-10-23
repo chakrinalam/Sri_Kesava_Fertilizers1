@@ -1,6 +1,7 @@
 const publicRoutes = require("./publicRoutes");
 const sampleRoutes = require("./sampleRoutes");
 const printRoutes = require("./printRoutes");
+const ureaRoutes = require("./ureaRoutes");
 
 const handleRoutes = (req, res) => {
   const url = req.url;
@@ -10,6 +11,8 @@ const handleRoutes = (req, res) => {
     sampleRoutes(res);
   } else if (url === "/print") {
     printRoutes(res);
+  } else if (url === "/urea") {
+    ureaRoutes(res);
   }
 };
 
